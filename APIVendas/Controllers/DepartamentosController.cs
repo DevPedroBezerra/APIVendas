@@ -32,7 +32,7 @@ namespace APIVendas.Controllers
         {
             var departamento = _Context.Departamentos.FirstOrDefault(d => d.Id == id);
             if (departamento is null)
-            { return NotFound("Departamento não encontrado"); }
+            { return NotFound("Departamento não encontrado!"); }
 
             return Ok(departamento);
         }
