@@ -1,4 +1,4 @@
-using APICatalogo.Context;
+using APIVendas.Context;
 using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 

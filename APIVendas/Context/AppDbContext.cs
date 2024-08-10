@@ -5,7 +5,7 @@ using static APIVendas.Models.ProdutosModel;
 using static APIVendas.Models.VendasModel;
 using static APIVendas.Models.VendedoresModel;
 
-namespace APICatalogo.Context
+namespace APIVendas.Context
 {
     public class AppDbContext : DbContext
     {
