@@ -10,8 +10,7 @@ namespace APIVendas.Models
     public class VendedoresModel 
     {
         
-        public class Vendedor
-        {
+      
             [Key] public int Id { get; set; }
             [Required][Column(TypeName = "varchar(45)")]
             public string Nome { get; set; }
@@ -48,9 +47,8 @@ namespace APIVendas.Models
             [ForeignKey("Departamento")]
             public int DepartamentoId { get; set; }
             [JsonIgnore]
-            public Departamento Departamento { get; set; }
-        }
-       
+            public DepartamentosModel Departamento { get; set; }
+    
 
     }
 }

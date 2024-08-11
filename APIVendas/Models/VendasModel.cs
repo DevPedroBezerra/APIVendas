@@ -8,8 +8,7 @@ namespace APIVendas.Models
 {
     public class VendasModel
     {
-        public class Venda 
-        {
+        
          [Key]
          public int Id { get; set; }
 
@@ -24,14 +23,14 @@ namespace APIVendas.Models
          public int VendedorId { get; set; }
 
          [JsonIgnore]
-         public Vendedor Vendedor { get; set; }
+         public VendedoresModel Vendedor { get; set; }
 
          [ForeignKey("Produto")]
          public int ProdutoId { get; set; }
 
          [JsonIgnore]
-         public Produto Produto { get; set; }
+         public ProdutosModel Produto { get; set; }
 
-        }
+        
     }
 }

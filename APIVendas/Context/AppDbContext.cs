@@ -13,9 +13,9 @@ namespace APIVendas.Context
         {
 
         }
-        public DbSet<Departamento> Departamentos { get; set; }
-        public DbSet<Vendedor> Vendedores { get; set; }
-        public DbSet<Venda>  Vendas { get; set; }
-        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<DepartamentosModel> Departamentos { get; set; }
+        public DbSet<VendedoresModel> Vendedores { get; set; }
+        public DbSet<VendasModel>  Vendas { get; set; }
+        public DbSet<ProdutosModel> Produtos { get; set; }
     }
 }

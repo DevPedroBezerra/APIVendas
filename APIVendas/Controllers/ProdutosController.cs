@@ -14,24 +14,24 @@ namespace APIVendas.Controllers
     [ApiController]
     public class ProdutosController : ControllerBase
     {
-        private readonly AppDbContext _Context;
-        private Produto produto;
+        private readonly AppDbContext _context;
+        private ProdutosModel produto;
 
         public ProdutosController(AppDbContext contexto)
         {
-            _Context = contexto;
+            _context = contexto;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Produto>> Get()
+        public ActionResult<IEnumerable<ProdutosModel>> Get()
         {
-            var departamento = _Context.Produtos.ToList();
-            return Ok(departamento);
+            var produto = _context.Produtos.ToList();
+            return Ok(produto);
         }
         [HttpGet("{id}")]
         public IActionResult Getbyid(int id)
         {
-            var departamento = _Context.Produtos.FirstOrDefault(p => p.Id == id);
+            var departamento = _context.Produtos.FirstOrDefault(p => p.Id == id);
             if (departamento == null)
             {
                 return NotFound();
@@ -39,11 +39,11 @@ namespace APIVendas.Controllers
             return Ok(departamento);
         }
         [HttpPost]
-        public async Task<IActionResult> GetPost([FromBody] Produto produto)
+        public async Task<IActionResult> GetPost([FromBody] ProdutosModel produto)
         {
             try {
-                await _Context.Produtos.AddAsync(produto);
-                _Context.SaveChanges();
+                await _context.Produtos.AddAsync(produto);
+                _context.SaveChanges();
                 return Created();
             }
             catch {
@@ -51,11 +51,11 @@ namespace APIVendas.Controllers
             }
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Produto produto)
+        public async Task<IActionResult> Put(int id, [FromBody] ProdutosModel produto)
         {
             if (produto != null)
             {
-                var atualizarProduto = _Context.Produtos.FirstOrDefault(p => p.Id == id);
+                var atualizarProduto = _context.Produtos.FirstOrDefault(p => p.Id == id);
                 if (atualizarProduto != null)
                 {
                     atualizarProduto.Nome = produto.Nome;
@@ -63,7 +63,8 @@ namespace APIVendas.Controllers
                     atualizarProduto.Descricao = produto.Descricao;
                     atualizarProduto.DataCadastro = produto.DataCadastro;
                     atualizarProduto.Estoque = produto.Estoque;
-                    _Context.SaveChanges();
+                    _context.Produtos.Update(atualizarProduto);
+                    _context.SaveChanges();
                     return Ok(atualizarProduto);
                 }
                 return NotFound("Produto não encontrado...");
@@ -73,11 +74,11 @@ namespace APIVendas.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id) 
         { 
-            var removerProduto = _Context.Produtos.FirstOrDefault(produto => produto.Id == id);
+            var removerProduto = _context.Produtos.FirstOrDefault(produto => produto.Id == id);
             if (removerProduto != null) 
             {
-                _Context.Produtos.Remove(removerProduto);
-                _Context.SaveChanges();
+                _context.Produtos.Remove(removerProduto);
+                _context.SaveChanges();
                 return Ok("Produto Deletado");
             }
             return NotFound("Produto não encontrado...");

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Entity;
 using System.Security.Cryptography.X509Certificates;
-using static APIVendas.Models.DepartamentosModel;
+
 
 
 namespace APIVendas.Controllers
@@ -14,24 +14,24 @@ namespace APIVendas.Controllers
     [ApiController]
     public class DepartamentosController : ControllerBase
     {
-        private readonly AppDbContext _Context;
-        private Departamento departamento;
+        private readonly AppDbContext _context;
+        private DepartamentosModel departamento;
 
         public DepartamentosController(AppDbContext context)
         {
-            _Context = context;
+            _context = context;
         }
         [HttpGet]
-         public ActionResult<IEnumerable<Departamento>> Get() 
+         public ActionResult<IEnumerable<DepartamentosModel>> Get() 
         {
-            var departamento =  _Context.Departamentos.ToList();
+            var departamento =  _context.Departamentos.ToList();
             return Ok(departamento);
         }
 
         [HttpGet("update/{id}")]
         public ActionResult  GetbyId(int id)
         {
-            var departamento = _Context.Departamentos.FirstOrDefault(d => d.Id == id);
+            var departamento = _context.Departamentos.FirstOrDefault(d => d.Id == id);
             if (departamento is null)
             { return NotFound("Departamento não encontrado!"); }
 
@@ -39,12 +39,12 @@ namespace APIVendas.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Departamento departamento)
+        public async Task<IActionResult> Post(DepartamentosModel departamento)
         {
             try
             {
-                await _Context.Departamentos.AddAsync(departamento);
-                _Context.SaveChanges();
+                await _context.Departamentos.AddAsync(departamento);
+                _context.SaveChanges();
                 return Created();
             }
             catch
@@ -54,18 +54,18 @@ namespace APIVendas.Controllers
         }
 
             [HttpPut("atualizar/{id}")]
-            public IActionResult PutDepartamento(int id, [FromBody] Departamento departamento)
+            public IActionResult PutDepartamento(int id, [FromBody] DepartamentosModel departamento)
             {
                 
                 if (departamento != null)
                 {
-                   var updateDepartamento  = _Context.Departamentos.FirstOrDefault(d => d.Id == id);
+                   var updateDepartamento  = _context.Departamentos.FirstOrDefault(d => d.Id == id);
                     if (updateDepartamento != null)
                     { 
                         updateDepartamento.Nome = departamento.Nome;
                         updateDepartamento.Descricao = departamento.Descricao;
-                        _Context.Departamentos.Update(updateDepartamento);
-                       _Context.SaveChanges();
+                        _context.Departamentos.Update(updateDepartamento);
+                       _context.SaveChanges();
                     return Ok();
                     }
                 return NotFound();
@@ -76,11 +76,11 @@ namespace APIVendas.Controllers
         public IActionResult Delete(int id) 
         {
           
-                var removerDepartamento = _Context.Departamentos.FirstOrDefault(d => d.Id == id);
+                var removerDepartamento = _context.Departamentos.FirstOrDefault(d => d.Id == id);
                 if (removerDepartamento != null)
                 {
-                    _Context.Remove(removerDepartamento);
-                    _Context.SaveChanges();
+                    _context.Remove(removerDepartamento);
+                    _context.SaveChanges();
                     return Ok();
                 } 
                 return BadRequest();
