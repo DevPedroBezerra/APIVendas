@@ -13,7 +13,7 @@ namespace APIVendas.Models
          public int Id { get; set; }
 
          [Required]
-         [Column(TypeName = "decimal(18,2)")]
+         [Column(TypeName = "decimal(17,2)")]
          public decimal Preco {  get; set; }
 
          [Required][Column(TypeName = "datetime")] 
